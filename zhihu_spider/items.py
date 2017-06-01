@@ -60,25 +60,16 @@ class ZhihuUserItem(Item):
     badge = scrapy.Field()
     craw_time = scrapy.Field()
 
-    '''
-        def get_insert_sql(self):
-        insert_sql = """
-            insert into zhihu_user VALUES(%s,%s,%s,%s,%d,%d,%d,%s,%s,%d,%d,%d,%d,%d,%s,%s)
-            ON DUPLICATE KEY UPDATE craw_time=VALUES(craw_time) following_count=VALUES(following_count)
-            follower_count=VALUES(follower_count) thxd_count=VALUES(thxd_count) agreed_count=VALUES(agreed_count)
-            collected_count=VALUES(collected_count)
-        """
+    def get_insert_sql(self):
+        insert_sql = '''
+            replace into zhihu_user1 values('{}','{}','{}','{}',{},{},{},'{}','{}',{},{},{},{},{},'{}','{}')
+            '''.format(self['name'], self['id'], self['url_token'], self['headline'], self['answer_count'],
+                       self['articles_count'], self['gender'], self['avatar_url'], self['user_type'],
+                       self['following_count'], self['follower_count'], self['thxd_count'],
+                       self['agreed_count'], self['collected_count'], self['badge'], self['craw_time'])
 
-        params = (
-            self['name'],self['id'],self['url_token'],self['headline'],self['answer_count'],
-            self['articles_count'],self['gender'],self['avatar_url'],self['user_type'],
-            self['following_count'],self['follower_count'], self['thxd_count'],self['agreed_count'],
-            self['collected_count'], self['badge'], self['craw_time']
-        )
+        return insert_sql
 
-        return insert_sql,params
-
-    '''
 
 
 
@@ -88,45 +79,3 @@ class ZhihuUserItemLoader(ItemLoader):
 
 
 
-class UserItem(Item):
-    class UserItem(Item):
-        # define the fields for your item here like:
-        id = Field()
-        name = Field()
-        avatar_url = Field()
-        headline = Field()
-        description = Field()
-        url = Field()
-        url_token = Field()
-        gender = Field()
-        cover_url = Field()
-        type = Field()
-        badge = Field()
-
-        answer_count = Field()
-        articles_count = Field()
-        commercial_question_count = Field()
-        favorite_count = Field()
-        favorited_count = Field()
-        follower_count = Field()
-        following_columns_count = Field()
-        following_count = Field()
-        pins_count = Field()
-        question_count = Field()
-        thank_from_count = Field()
-        thank_to_count = Field()
-        thanked_count = Field()
-        vote_from_count = Field()
-        vote_to_count = Field()
-        voteup_count = Field()
-        following_favlists_count = Field()
-        following_question_count = Field()
-        following_topic_count = Field()
-        marked_answers_count = Field()
-        mutual_followees_count = Field()
-        hosted_live_count = Field()
-        participated_live_count = Field()
-
-        locations = Field()
-        educations = Field()
-        employments = Field()
