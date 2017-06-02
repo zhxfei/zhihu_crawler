@@ -31,7 +31,7 @@ class MysqlTwsitedPipeline(object):
     def process_item(self, item, spider):
         query = self.dbpool.runInteraction(self.do_insert,item)
         query.addErrback(self.handle_error)
-        yield item
+        return item
 
     def handle_error(self,failure):
         print(failure)
@@ -39,8 +39,7 @@ class MysqlTwsitedPipeline(object):
     def do_insert(self,cursor,item):
         insert_sql = item.get_insert_sql()
         cursor.execute(insert_sql)
-
-
+'''
 class HeadImageDownloadPipeline(object):
     def process_item(self,item,spider):
         path = '/home/zhxfei/workspace/zhihu_spider/zhihu_spider/headimage/'+ item.get('url_token')
@@ -52,6 +51,7 @@ class HeadImageDownloadPipeline(object):
     def hendler(self,response):
         with open(response.meta['path'],'w+') as f:
             f.write(response.body)
+'''
 
 
 

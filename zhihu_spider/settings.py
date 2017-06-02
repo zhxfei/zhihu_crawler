@@ -66,8 +66,7 @@ ROBOTSTXT_OBEY = False
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 
 ITEM_PIPELINES = {
-    'zhihu_spider.pipelines.MysqlTwsitedPipeline': 300,
-    'zhihu_spider.pipelines.HeadImageDownloadPipeline': 301,
+    'zhihu_spider.pipelines.MysqlTwsitedPipeline': 300
 }
 
 DOWNLOADER_MIDDLEWARES = {
